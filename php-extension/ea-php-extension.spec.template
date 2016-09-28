@@ -1,0 +1,40 @@
+Name: ea-php[% VERSION %]-php-[% NAME %]  #TODO
+Version: [% PECL_VERSION %]
+Summary: [% SHORT_DESCRIPTION %]
+Release: 1%{?dist}
+License: MIT
+Group: Programming/Languages
+URL: [% PROJECT_URL %]
+Source: [% SOURCE_URL %]
+Source1: [% NAME %].ini
+
+Requires: [% REQUIRED_LIBRARY_PACKAGES %]
+BuildRequires: [% REQUIRED_DEVEL_PACKAGES %]
+BuildRequires: ea-php[% VERSION %] ea-php[% VERSION %]-php-cli
+
+%description
+[% LONG_DESCRIPTION %]
+
+%prep
+%setup -n [% NAME %]-%{version}
+
+%build
+scl enable ea-php[% VERSION %] phpize
+scl enable ea-php[% VERSION %] ./configure
+make
+
+%install
+scl enable ea-php[% VERSION %] 'make install INSTALL_ROOT=%{buildroot}'
+install -m 755 -d $RPM_BUILD_ROOT/opt/cpanel/ea-php[% VERSION %]/root/etc/php.d/
+install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/opt/cpanel/ea-php[% VERSION %]/root/etc/php.d/
+
+%clean
+%{__rm} -rf %{buildroot}
+
+%files
+/opt/cpanel/ea-php[% VERSION %]/root/usr/lib64/php/modules/[% SO_FILE_NAME %].so
+/opt/cpanel/ea-php[% VERSION %]/root/etc/php.d/[% NAME %].ini
+
+%changelog
+* Thu Sep 15 2016 Matt Dees <matt@cpanel.net> - [% VERSION %]-[% RELEASE %]
+- Initial spec file creation.
