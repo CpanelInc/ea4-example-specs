@@ -2,7 +2,7 @@ Name: ea-php[% VERSION %]-php-[% NAME %]  #TODO
 Version: [% PECL_VERSION %]
 Summary: [% SHORT_DESCRIPTION %]
 Release: 1%{?dist}
-License: MIT
+License: [% LICENSE %]
 Group: Programming/Languages
 URL: [% PROJECT_URL %]
 Source: [% SOURCE_URL %]
