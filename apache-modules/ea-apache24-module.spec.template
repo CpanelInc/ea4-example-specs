@@ -1,0 +1,48 @@
+Name: ea-apache[% APACHE_VERSION %]-[% MODULE_NAME %]
+Version: [% MODULE_VERSION %]
+Summary: [% SHORT_DESCRIPTION %]
+Release: 1%{?dist}
+License: [% LICENSE %]
+Group: System Environment/Daemons
+URL: [% PROJECT_URL %]
+Source: [% SOURCE_URL %]
+
+Requires: ea-apache24
+Requires: [% REQUIRED_LIBRARY_PACAKGES %]
+
+BuildRequires: ea-apache[% APACHE_VERSION %]-devel redhat-rpm-config
+BuildRequires: [% REQUIRED_DEVEL_PACAKGES %]
+
+%description
+[% LONG_DESCRIPTION %]
+
+%prep
+%setup -q
+
+%{__cat} <<EOF > [% MODULE_NAME %].conf
+### Load the module
+LoadModule [% APACHE_MODULE_NAME %] modules/[% MODULE_NAME %].so
+
+EOF
+
+
+%build
+%configure --prefix=%{_sysconfdir}/apache2 --exec-prefix=%{_prefix}
+make %{?_smp_mflags}
+
+%install
+%{__rm} -rf %{buildroot}
+%make_install
+%{__install} -Dp -m0644 [% MODULE_NAME %].conf %{buildroot}%{_sysconfdir}/apache2/conf.d/[% MODULE_NAME %].conf
+
+%clean
+%{__rm} -rf %{buildroot}
+
+%files
+%{_libdir}/apache2/modules/[% MODULE_NAME %].so
+%config(noreplace) %{_sysconfdir}/apache2/conf.d/[% MODULE_NAME %].conf
+
+%changelog
+* Thu Sep 29 2016 Matt Dees <matt@cpanel.net> - [% MODULE_VERSION %]-[% RELEASE %]
+- Initial spec file creation.
+EOF

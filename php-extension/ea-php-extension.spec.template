@@ -1,4 +1,4 @@
-Name: ea-php[% VERSION %]-php-[% NAME %]  #TODO
+Name: ea-php[% PHP_VERSION %]-php-[% NAME %]  #TODO
 Version: [% PECL_VERSION %]
 Summary: [% SHORT_DESCRIPTION %]
 Release: 1%{?dist}
@@ -10,7 +10,7 @@ Source1: [% NAME %].ini
 
 Requires: [% REQUIRED_LIBRARY_PACKAGES %]
 BuildRequires: [% REQUIRED_DEVEL_PACKAGES %]
-BuildRequires: ea-php[% VERSION %] ea-php[% VERSION %]-php-cli
+BuildRequires: ea-php[% PHP_VERSION %] ea-php[% PHP_VERSION %]-php-cli
 
 %description
 [% LONG_DESCRIPTION %]
@@ -19,22 +19,22 @@ BuildRequires: ea-php[% VERSION %] ea-php[% VERSION %]-php-cli
 %setup -n [% NAME %]-%{version}
 
 %build
-scl enable ea-php[% VERSION %] phpize
-scl enable ea-php[% VERSION %] ./configure
+scl enable ea-php[% PHP_VERSION %] phpize
+scl enable ea-php[% PHP_VERSION %] ./configure
 make
 
 %install
-scl enable ea-php[% VERSION %] 'make install INSTALL_ROOT=%{buildroot}'
-install -m 755 -d $RPM_BUILD_ROOT/opt/cpanel/ea-php[% VERSION %]/root/etc/php.d/
-install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/opt/cpanel/ea-php[% VERSION %]/root/etc/php.d/
+scl enable ea-php[% PHP_VERSION %] 'make install INSTALL_ROOT=%{buildroot}'
+install -m 755 -d $RPM_BUILD_ROOT/opt/cpanel/ea-php[% PHP_VERSION %]/root/etc/php.d/
+install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/opt/cpanel/ea-php[% PHP_VERSION %]/root/etc/php.d/
 
 %clean
 %{__rm} -rf %{buildroot}
 
 %files
-/opt/cpanel/ea-php[% VERSION %]/root/usr/lib64/php/modules/[% SO_FILE_NAME %].so
-/opt/cpanel/ea-php[% VERSION %]/root/etc/php.d/[% NAME %].ini
+/opt/cpanel/ea-php[% PHP_VERSION %]/root/usr/lib64/php/modules/[% SO_FILE_NAME %]
+/opt/cpanel/ea-php[% PHP_VERSION %]/root/etc/php.d/[% NAME %].ini
 
 %changelog
-* Thu Sep 15 2016 Matt Dees <matt@cpanel.net> - [% VERSION %]-[% RELEASE %]
+* Thu Sep 15 2016 Matt Dees <matt@cpanel.net> - [% PECL_VERSION %]-[% RELEASE %]
 - Initial spec file creation.
