@@ -32,7 +32,7 @@ install -m 644 %{SOURCE1} $RPM_BUILD_ROOT/opt/cpanel/ea-php56/root/etc/php.d/
 %{__rm} -rf %{buildroot}
 
 %files
-/opt/cpanel/ea-php56/root/usr/lib64/php/modules/yaml.so
+/opt/cpanel/ea-php56/root/%{_libdir}php/modules/yaml.so
 /opt/cpanel/ea-php56/root/etc/php.d/yaml.ini
 
 %changelog
