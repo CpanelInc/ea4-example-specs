@@ -1,6 +1,6 @@
 #EasyApache 4 Example Repository
 
-This repoistory has been created to provide examples of how to package common extension types for EasyApache4.
+This repository has been created to provide examples of how to package common extension types for EasyApache4.
 
 Each of the directories provided will contain 3 items:
 
